@@ -71,7 +71,7 @@ var someData = {
 
 
 describe('Profile editor', function ( ) {
-  var self = this;
+  this.timeout(10000);
   var headless = require('./fixtures/headless')(benv, this);
 
   before(function (done) {
@@ -88,8 +88,7 @@ describe('Profile editor', function ( ) {
     , mockProfileEditor: true
     , mockAjax: someData
     , benvRequires: [
-        __dirname + '/../bundle/bundle.source.js'
-      , __dirname + '/../static/profile/js/profileeditor.js'
+        __dirname + '/../static/profile/js/profileeditor.js'
       ]
     };
     headless.setup(opts, done);
@@ -101,7 +100,6 @@ describe('Profile editor', function ( ) {
   });
 
   it ('should produce some html', function (done) {
-    var plugins = require('../lib/plugins/')().registerClientDefaults();
     var client = require('../lib/client');
 
     var hashauth = require('../lib/hashauth');
@@ -120,7 +118,7 @@ describe('Profile editor', function ( ) {
        return true;
      };
 
-    client.init(plugins);
+    client.init();
     client.dataUpdate(nowData);
     
     //var result = $('body').html();
